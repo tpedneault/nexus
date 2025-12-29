@@ -1,0 +1,67 @@
+{
+  "name": "Nexus Flight Software Development",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": ".."
+  },
+
+  // Run as non-root user for security
+  "remoteUser": "developer",
+
+  // Mount workspace
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached",
+  "workspaceFolder": "/workspace",
+
+  // Environment variables
+  "remoteEnv": {
+    "TERM": "xterm-256color"
+  },
+
+  // Features to install
+  "features": {
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "installZsh": true,
+      "installOhMyZsh": true,
+      "configureZshAsDefaultShell": true,
+      "username": "developer",
+      "userUid": "1001",
+      "userGid": "1001"
+    },
+    "ghcr.io/devcontainers/features/git:1": {
+      "version": "latest",
+      "ppa": false
+    }
+  },
+
+  // Ports (for future GDB server if needed)
+  "forwardPorts": [3333, 4444],
+
+  // Commands to run after container creation
+  "postCreateCommand": "/workspace/.devcontainer/post-create.sh",
+
+  // IDE and editor customizations
+  "customizations": {
+    "jetbrains": {
+      "backend": "CLion"
+    },
+    "vscode": {
+      "extensions": [
+        "ms-vscode.cpptools",
+        "ms-vscode.cmake-tools",
+        "marus25.cortex-debug"
+      ]
+    }
+  },
+
+  // Mount points for hardware access (optional, for J-Link)
+  "mounts": [
+    // Uncomment if using J-Link USB passthrough
+    // "source=/dev/bus/usb,target=/dev/bus/usb,type=bind"
+  ],
+
+  // Run privileged if USB access needed (for J-Link)
+  // "privileged": true,
+
+  // Keep container running
+  "shutdownAction": "stopContainer"
+}

@@ -1,0 +1,32 @@
+CompileFlags:
+  Add:
+    - -DCORTEX_R5F
+    - -DMCU_FAMILY_TMS570
+    - -DTMS570LC4357
+    - -D_TMS570LC4357_
+    - -D__TMS570LC43x__
+    - -I/workspace/halcogen/include
+    - -I/opt/ti-cgt-arm/ti-cgt-arm_20.2.7.LTS/include
+    - --target=armv7r-none-eabi
+    - -mbig-endian
+  Remove:
+    - --silicon_version*
+    - --code_state*
+    - --float_support*
+    - --endian*
+    - --enum_type*
+    - --opt_level*
+    - --opt_for_speed*
+    - --diag_*
+    - --display_error_number
+    - --gen_func_subsections*
+    - --gen_data_subsections*
+    - --symdebug*
+    - --include_path*
+    - --compile_only
+    - --c_file*
+    - --output_file*
+
+Diagnostics:
+  UnusedIncludes: None
+  MissingIncludes: None
