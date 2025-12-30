@@ -1,32 +1,18 @@
 CompileFlags:
+  # The compile_commands.json has already been translated to Clang-compatible flags
+  # by tools/fix_compile_commands.py
+  # Include order: Clang builtins first, then TI headers for libc functions
+
   Add:
-    - -DCORTEX_R5F
-    - -DMCU_FAMILY_TMS570
-    - -DTMS570LC4357
-    - -D_TMS570LC4357_
-    - -D__TMS570LC43x__
-    - -I/workspace/halcogen/include
-    - -I/opt/ti-cgt-arm/ti-cgt-arm_20.2.7.LTS/include
-    - --target=armv7r-none-eabi
-    - -mbig-endian
-  Remove:
-    - --silicon_version*
-    - --code_state*
-    - --float_support*
-    - --endian*
-    - --enum_type*
-    - --opt_level*
-    - --opt_for_speed*
-    - --diag_*
-    - --display_error_number
-    - --gen_func_subsections*
-    - --gen_data_subsections*
-    - --symdebug*
-    - --include_path*
-    - --compile_only
-    - --c_file*
-    - --output_file*
+    - -std=c11
+    - -Wno-unknown-warning-option
+    - -Wno-unknown-pragmas
 
 Diagnostics:
+  # Suppress diagnostics that don't apply to embedded systems
   UnusedIncludes: None
   MissingIncludes: None
+  ClangTidy:
+    Remove:
+      - bugprone-reserved-identifier
+      - readability-identifier-naming

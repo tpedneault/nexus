@@ -90,6 +90,13 @@ toolchain-info: ## Show toolchain version information
 configure: ## Configure CMake for debug build
 	@echo "Configuring CMake (debug)..."
 	@$(DOCKER_RUN) cmake --preset $(CMAKE_PRESET_DEBUG)
+	@echo "Copying TI compiler headers for LSP..."
+	@mkdir -p $(BUILD_DIR)/ti-headers
+	@docker run --rm -v "$(WORKSPACE_PATH)/$(BUILD_DIR)/ti-headers://output" $(DOCKER_FULL) sh -c "cp -r /opt/ti-cgt-arm/ti-cgt-arm_20.2.7.LTS/include/* //output/" 2>/dev/null || true
+	@echo "Removing compiler builtin headers (use Clang's instead)..."
+	@rm -f $(BUILD_DIR)/ti-headers/stddef.h $(BUILD_DIR)/ti-headers/stdint.h $(BUILD_DIR)/ti-headers/stdbool.h $(BUILD_DIR)/ti-headers/stdarg.h $(BUILD_DIR)/ti-headers/limits.h $(BUILD_DIR)/ti-headers/float.h
+	@echo "Fixing compile_commands.json paths for LSP..."
+	@python tools/fix_compile_commands.py
 	@ln -sf $(BUILD_DIR)/compile_commands.json compile_commands.json
 	@echo "Configuration complete!"
 
