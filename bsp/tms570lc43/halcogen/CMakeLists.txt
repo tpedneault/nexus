@@ -31,7 +31,7 @@ set(HALCOGEN_C_SOURCES
     source/HL_gio.c
     source/HL_het.c
     source/HL_i2c.c
-    source/HL_lin.c
+    # source/HL_lin.c  # Commented out - LIN not configured in HALCoGen
     source/HL_mdio.c
     source/HL_mibspi.c
     source/HL_nmpu.c

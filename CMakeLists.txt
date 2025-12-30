@@ -40,57 +40,28 @@ set(CMAKE_C_STANDARD_REQUIRED ON)
 set(CMAKE_C_EXTENSIONS OFF)
 
 # =============================================================================
-# Subdirectories
+# Subdirectories (following layered architecture)
 # =============================================================================
 
-# HALCoGen wrapper library (TMS570 only)
+# Layer 1: Board Support Package (BSP)
 if(MCU_FAMILY STREQUAL "TMS570")
-    add_subdirectory(halcogen)
+    add_subdirectory(bsp/tms570lc43)
 endif()
 
-# Hardware Abstraction Layer
-# add_subdirectory(hal)
+# Layer 2: Hardware Abstraction Layer (HAL)
+add_subdirectory(hal)
 
-# CCSDS packet handling
+# Layer 3: CCSDS packet handling
 # add_subdirectory(ccsds)
 
-# PUS services
+# Layer 4: PUS services
 # add_subdirectory(pus)
 
-# Main application
-# add_subdirectory(app)
+# Layer 5: Application services
+# add_subdirectory(services)
 
-# =============================================================================
-# Main Application Executable
-# =============================================================================
-
-add_executable(nexus-fsw
-        halcogen/source/HL_sys_main.c
-        halcogen/source/HL_sys_startup.c
-        halcogen/source/HL_sys_intvecs.asm
-        halcogen/source/HL_sys_core.asm
-        halcogen/source/HL_sys_mpu.asm
-        halcogen/source/HL_sys_pmu.asm
-        halcogen/source/HL_sys_phantom.c
-)
-
-target_include_directories(nexus-fsw PRIVATE halcogen/include)
-
-target_link_libraries(nexus-fsw PRIVATE 
-    halcogen
-    ${TI_CGT_INSTALL_DIR}/lib/rtsv7R4_A_be_v3D16_eabi.lib
-)
-
-# Link with linker script (must come after object files)
-target_link_options(nexus-fsw PRIVATE 
-    ${CMAKE_SOURCE_DIR}/halcogen/source/HL_sys_link.cmd
-)
-
-# Generate additional output formats
-add_custom_command(TARGET nexus-fsw POST_BUILD
-        COMMAND ${TI_HEX} -o ${CMAKE_BINARY_DIR}/nexus-fsw.txt $<TARGET_FILE:nexus-fsw>
-        COMMENT "Generating TI-TXT output file"
-)
+# Layer 6: Main application
+add_subdirectory(app)
 
 # =============================================================================
 # Host-based tests (native compilation)

@@ -52,7 +52,6 @@
 #include "HL_adc.h"
 #include "HL_can.h"
 #include "HL_gio.h"
-#include "HL_lin.h"
 #include "HL_mibspi.h"
 #include "HL_sci.h"
 #include "HL_het.h"
@@ -196,16 +195,6 @@ void i2cNotification(i2cBASE_t *i2c, uint32 flags)
 }
 
 /* USER CODE BEGIN (25) */
-/* USER CODE END */
-#pragma WEAK(linNotification)
-void linNotification(linBASE_t *lin, uint32 flags)      
-{
-/*  enter user code between the USER CODE BEGIN and USER CODE END. */
-/* USER CODE BEGIN (26) */
-/* USER CODE END */
-}
-
-/* USER CODE BEGIN (27) */
 /* USER CODE END */
 #pragma WEAK(mibspiNotification)
 void mibspiNotification(mibspiBASE_t *mibspi, uint32 flags)
