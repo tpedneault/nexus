@@ -21,8 +21,9 @@ target_include_directories(nexus-fsw PRIVATE
     ${CMAKE_SOURCE_DIR}/bsp/tms570lc43/halcogen/include
 )
 
-# Link libraries (following dependency order: app -> hal -> bsp)
+# Link libraries (following dependency order: app -> ccsds -> hal -> bsp)
 target_link_libraries(nexus-fsw PRIVATE
+    ccsds
     hal
     halcogen
     ${TI_CGT_INSTALL_DIR}/lib/rtsv7R4_A_be_v3D16_eabi.lib

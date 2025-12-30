@@ -13,6 +13,9 @@ project(nexus-fsw
 # Configuration Options
 # =============================================================================
 
+# Export compile commands for LSP/clangd
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 set(TARGET_MCU "TMS570LC4357" CACHE STRING "Target microcontroller")
 set_property(CACHE TARGET_MCU PROPERTY STRINGS
         TMS570LC4357
@@ -52,7 +55,7 @@ endif()
 add_subdirectory(hal)
 
 # Layer 3: CCSDS packet handling
-# add_subdirectory(ccsds)
+add_subdirectory(ccsds)
 
 # Layer 4: PUS services
 # add_subdirectory(pus)

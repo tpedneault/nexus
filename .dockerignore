@@ -1,0 +1,33 @@
+# Build artifacts
+build/
+build-*/
+out/
+
+# IDE files
+.idea/
+.vscode/
+*.iml
+.cache/
+
+# Git
+.git/
+.gitignore
+
+# Documentation
+docs/html/
+docs/latex/
+
+# Logs
+*.log
+
+# Generated files
+compile_commands.json
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.swp
+*~
